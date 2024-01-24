@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bcb24\\Software Engineering\\ClassDemo\\RateYourProfessorSol\\RateYourProfessor\\RateYourProfessor.csproj": {}
+    "C:\\Users\\bcb24\\Software Engineering\\RateYourProfessor\\RateYourProfessor\\RateYourProfessorSol\\RateYourProfessor\\RateYourProfessor.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bcb24\\Software Engineering\\ClassDemo\\RateYourProfessorSol\\RateYourProfessor\\RateYourProfessor.csproj": {
+    "C:\\Users\\bcb24\\Software Engineering\\RateYourProfessor\\RateYourProfessor\\RateYourProfessorSol\\RateYourProfessor\\RateYourProfessor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bcb24\\Software Engineering\\ClassDemo\\RateYourProfessorSol\\RateYourProfessor\\RateYourProfessor.csproj",
+        "projectUniqueName": "C:\\Users\\bcb24\\Software Engineering\\RateYourProfessor\\RateYourProfessor\\RateYourProfessorSol\\RateYourProfessor\\RateYourProfessor.csproj",
         "projectName": "RateYourProfessor",
-        "projectPath": "C:\\Users\\bcb24\\Software Engineering\\ClassDemo\\RateYourProfessorSol\\RateYourProfessor\\RateYourProfessor.csproj",
+        "projectPath": "C:\\Users\\bcb24\\Software Engineering\\RateYourProfessor\\RateYourProfessor\\RateYourProfessorSol\\RateYourProfessor\\RateYourProfessor.csproj",
         "packagesPath": "C:\\Users\\bcb24\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bcb24\\Software Engineering\\ClassDemo\\RateYourProfessorSol\\RateYourProfessor\\obj\\",
+        "outputPath": "C:\\Users\\bcb24\\Software Engineering\\RateYourProfessor\\RateYourProfessor\\RateYourProfessorSol\\RateYourProfessor\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bcb24\\AppData\\Roaming\\NuGet\\NuGet.Config",
