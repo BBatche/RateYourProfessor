@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace RateYourProfessor
 {
-    class Professor
+    public class Professor
     {
+        public int ID { get; set; } // or use Guid for UUID
+        public string Name { get; set; }
+        public List<Rating> Ratings { get; set; }
+
+        // Constructor
+        public Professor(int id, string name, List<Rating> ratings)
+        {
+            ID = id;
+            Name = name;
+            Ratings = ratings;
+        }
     }
 }
