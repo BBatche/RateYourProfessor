@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RateYourProfessor
 {
-    internal class Categories
+    class Categories
     {
     }
 }
