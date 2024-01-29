@@ -10,6 +10,7 @@ namespace ProfessorTest
         public void TestAddProfessorToFile()
         {
             DataStorage ds = new DataStorage();
+            Professor p1 = new Professor(1, "Bilitski", null);
 
         }
     }
