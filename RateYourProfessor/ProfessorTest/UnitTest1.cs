@@ -1,4 +1,6 @@
 
+using RateYourProfessor;
+
 namespace ProfessorTest
 {
     [TestClass]
@@ -7,7 +9,8 @@ namespace ProfessorTest
         [TestMethod]
         public void TestAddProfessorToFile()
         {
-            
+            DataStorage ds = new DataStorage();
+
         }
     }
 }

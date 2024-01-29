@@ -9,9 +9,9 @@ namespace RateYourProfessor
 {
     public class DataStorage
     {
-        private const string ProfessorsFilePath = "professors.json";
-        private const string RatingsFilePath = "ratings.json";
-        private const string CategoriesFilePath = "categories.json";
+        private const string ProfessorsFilePath = "professors.txt";
+        private const string RatingsFilePath = "ratings.txt";
+        private const string CategoriesFilePath = "categories.txt";
 
         public List<Professor> GetProfessors()
         {
@@ -23,10 +23,15 @@ namespace RateYourProfessor
             return new List<Professor>();
         }
 
-        public void SaveProfessors(List<Professor> professors)
+        public bool SaveProfessors(List<Professor> professors)
         {
             string json = JsonConvert.SerializeObject(professors, Formatting.Indented);
-            File.WriteAllText(ProfessorsFilePath, json);
+            if (File.Exists(ProfessorsFilePath))
+            {
+                File.WriteAllText(ProfessorsFilePath, json);
+                return true;
+            }
+            return false;
         }
 
         public List<Rating> GetRatings()
@@ -62,4 +67,4 @@ namespace RateYourProfessor
         }
     }
 }
-}
+
