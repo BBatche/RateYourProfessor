@@ -13,7 +13,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      Solution_Name: RateYourProfessor.sln
+      Solution_Name: RateYourProfessor/RateYourProfessor.sln
 
     steps:
     - name: Checkout
