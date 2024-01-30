@@ -72,7 +72,7 @@ namespace RateYourProfessor
             return new List<Rating>();
         }
 
-        public void SaveRatings(List<Rating> ratings)
+        public bool SaveRatings(List<Rating> ratings)
         {
             try
             {
@@ -84,9 +84,34 @@ namespace RateYourProfessor
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating files: {ex.Message}");
+                return false;
             }
+
+            for (int i = 0; i < ratings.Count; i++)
+            {
+                var currentRating = ratings[i];
+
+                // Check for invalid conditions
+                if (currentRating.ID <= 0 || currentRating.Value < 0 || currentRating.Value > 5)
+                {
+                    Console.WriteLine("Invalid rating ID or Score.");
+                    return false;
+                }
+
+                // Check for duplicate IDs
+                for (int j = i + 1; j < ratings.Count; j++)
+                {
+                    if (currentRating.ID == ratings[j].ID)
+                    {
+                        Console.WriteLine($"Duplicate rating ID found: {currentRating.ID}");
+                        return false;
+                    }
+                }
+            }
+
             string json = JsonConvert.SerializeObject(ratings, Formatting.Indented);
             File.WriteAllText(RatingsFilePath, json);
+            return true;
         }
 
         public List<Categories> GetCategories()
@@ -99,7 +124,7 @@ namespace RateYourProfessor
             return new List<Categories>();
         }
 
-        public void SaveCategories(List<Categories> categories)
+        public bool SaveCategories(List<Categories> categories)
         {
             try
             {
@@ -111,9 +136,34 @@ namespace RateYourProfessor
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating files: {ex.Message}");
+                return false;
             }
+
+            for (int i = 0; i < categories.Count; i++)
+            {
+                var currentCategory = categories[i];
+
+                // Check for invalid conditions
+                if (currentCategory.ID <= 0 || currentCategory.Name == null)
+                {
+                    Console.WriteLine("Invalid category ID or Name.");
+                    return false;
+                }
+
+                // Check for duplicate IDs
+                for (int j = i + 1; j < categories.Count; j++)
+                {
+                    if (currentCategory.ID == categories[j].ID)
+                    {
+                        Console.WriteLine($"Duplicate category ID found: {currentCategory.ID}");
+                        return false;
+                    }
+                }
+            }
+
             string json = JsonConvert.SerializeObject(categories, Formatting.Indented);
             File.WriteAllText(CategoriesFilePath, json);
+            return true;
         }
 
         public void CreateEmptyFile(string filePath)
@@ -127,6 +177,14 @@ namespace RateYourProfessor
         public void ClearProfessorsFile()
         {
             File.WriteAllText(ProfessorsFilePath, string.Empty);
+        }
+        public void ClearCategoriesFile()
+        {
+            File.WriteAllText(CategoriesFilePath, string.Empty);
+        }
+        public void ClearRatingsFile()
+        {
+            File.WriteAllText(RatingsFilePath, string.Empty);
         }
     }
 

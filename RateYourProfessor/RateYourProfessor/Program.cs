@@ -94,7 +94,7 @@ public class Program
         }
     }
 
-    static void AddProfessor()
+    public static void AddProfessor()
     {
         Console.Write("Enter Professor ID: ");
         if (int.TryParse(Console.ReadLine(), out int id))
@@ -117,7 +117,7 @@ public class Program
         }
     }
 
-    static void AddRating()
+    public static void AddRating()
     {
         Console.Write("Enter Rating ID: ");
         if (int.TryParse(Console.ReadLine(), out int ratingId))
@@ -173,7 +173,7 @@ public class Program
         }
     }
 
-    static void AddCategory()
+    public static void AddCategory()
         {
         Console.Write("Enter Category ID: ");
         if (int.TryParse(Console.ReadLine(), out int id))
@@ -198,7 +198,7 @@ public class Program
         }
     }
 
-    static void EditProfessor()
+    public static void EditProfessor()
     {
         Console.Write("Enter Professor ID to edit: ");
         if (int.TryParse(Console.ReadLine(), out int id))
@@ -222,7 +222,7 @@ public class Program
         }
     }
 
-    static void EditRating()
+    public static void EditRating()
     {
         Console.Write("Enter Rating ID to edit: ");
         if (int.TryParse(Console.ReadLine(), out int ratingId))
@@ -252,7 +252,7 @@ public class Program
         }
     }
 
-    static void EditCategory()
+    public static void EditCategory()
     {
         Console.Write("Enter Category ID to edit: ");
         if (int.TryParse(Console.ReadLine(), out int id))
@@ -279,7 +279,7 @@ public class Program
         }
     }
 
-    static void DeleteProfessor()
+    public static void DeleteProfessor()
     {
         Console.Write("Enter Professor ID to delete: ");
         if (int.TryParse(Console.ReadLine(), out int id))
@@ -301,7 +301,7 @@ public class Program
         }
     }
 
-    static void DeleteRating()
+    public static void DeleteRating()
     {
         Console.Write("Enter Rating ID to delete: ");
         if (int.TryParse(Console.ReadLine(), out int id))
@@ -323,7 +323,7 @@ public class Program
         }
     }
 
-    static void DeleteCategory()
+    public static void DeleteCategory()
     {
         Console.Write("Enter Category ID to delete: ");
         if (int.TryParse(Console.ReadLine(), out int id))
