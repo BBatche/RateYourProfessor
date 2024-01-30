@@ -9,7 +9,7 @@ namespace RateYourProfessor
 {
     public class DataStorage
     {
-        private const string ProfessorsFilePath = "professors.txt";
+        protected const string ProfessorsFilePath = "professors.txt";
         private const string RatingsFilePath = "ratings.txt";
         private const string CategoriesFilePath = "categories.txt";
 
@@ -25,13 +25,41 @@ namespace RateYourProfessor
 
         public bool SaveProfessors(List<Professor> professors)
         {
-            string json = JsonConvert.SerializeObject(professors, Formatting.Indented);
-            if (File.Exists(ProfessorsFilePath))
+            try
             {
-                File.WriteAllText(ProfessorsFilePath, json);
-                return true;
+                // Create professors.txt
+                CreateEmptyFile(ProfessorsFilePath);
+
+                Console.WriteLine("Files created successfully.");
             }
-            return false;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating files: {ex.Message}");
+            }
+
+            for (int i = 0; i < professors.Count; i++)
+            {
+                var currentProfessor = professors[i];
+
+                // Check for invalid conditions
+                if (currentProfessor.ID <= 0 || currentProfessor.Name == null)
+                {
+                    return false;
+                }
+
+                // Check for duplicate IDs
+                for (int j = i + 1; j < professors.Count; j++)
+                {
+                    if (currentProfessor.ID == professors[j].ID)
+                    {
+                        Console.WriteLine($"Duplicate ID found: {currentProfessor.ID}");
+                        return false;
+                    }
+                }
+            }
+            string json = JsonConvert.SerializeObject(professors, Formatting.Indented);
+            File.WriteAllText(ProfessorsFilePath, json);
+            return true;
         }
 
         public List<Rating> GetRatings()
@@ -46,6 +74,17 @@ namespace RateYourProfessor
 
         public void SaveRatings(List<Rating> ratings)
         {
+            try
+            {
+                // Create ratings.txt
+                CreateEmptyFile(RatingsFilePath);
+
+                Console.WriteLine("Files created successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating files: {ex.Message}");
+            }
             string json = JsonConvert.SerializeObject(ratings, Formatting.Indented);
             File.WriteAllText(RatingsFilePath, json);
         }
@@ -62,9 +101,35 @@ namespace RateYourProfessor
 
         public void SaveCategories(List<Categories> categories)
         {
+            try
+            {
+                // Create categories.txt
+                CreateEmptyFile(CategoriesFilePath);
+
+                Console.WriteLine("Files created successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating files: {ex.Message}");
+            }
             string json = JsonConvert.SerializeObject(categories, Formatting.Indented);
             File.WriteAllText(CategoriesFilePath, json);
         }
+
+        public void CreateEmptyFile(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                File.WriteAllText(filePath, string.Empty);
+            }
+        }
+
+        public void ClearProfessorsFile()
+        {
+            File.WriteAllText(ProfessorsFilePath, string.Empty);
+        }
     }
+
+    
 }
 
