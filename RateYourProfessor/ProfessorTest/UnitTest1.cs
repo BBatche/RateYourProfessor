@@ -133,22 +133,19 @@ namespace ProfessorTest
             {
                 consoleOutput.Dispose();
                 consoleInput.Dispose();
-                Program.professors.Clear();  // Clear professors list after each test
-                Program.ratings.Clear();     // Clear ratings list after each test
-                Program.categories.Clear();  // Clear categories list after each test
+                Program.professors.Clear();  
+                Program.ratings.Clear();    
+                Program.categories.Clear(); 
             }
 
             [TestMethod]
             public void TestAddProfessor_UniqueID()
             {
-                // Arrange
+                
                 consoleInput = new StringReader("1\nJohn Doe\n");
                 Console.SetIn(consoleInput);
 
-                // Act
                 Program.AddProfessor();
-
-                // Assert
                 
                 Assert.AreEqual(1, Program.professors.Count);
             }
@@ -156,17 +153,13 @@ namespace ProfessorTest
             [TestMethod]
             public void TestAddProfessor_DuplicateID()
             {
-                // Arrange
                 Program.professors.Add(new Professor(1, "ExistingProfessor"));
                 consoleInput = new StringReader("1\nJohn Doe\n");
                 Console.SetIn(consoleInput);
 
-                // Act
                 Program.AddProfessor();
-
-                // Assert
                 
-                Assert.AreEqual(1, Program.professors.Count); // Ensure no new professor added
+                Assert.AreEqual(1, Program.professors.Count); 
             }
 
         }
