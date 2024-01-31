@@ -41,6 +41,23 @@ namespace ProfessorTest
         }
 
         [TestMethod]
+        public void TestAddProfessorToFileThatDoesNotExist()
+        {
+
+            DataStorage ds = new DataStorage();
+            ds.DeleteProfessorsFile();
+            Professor p1 = new Professor(1, "Bilitski");
+            List<Professor> pL = new List<Professor> { p1 };
+
+            ds.SaveProfessors(pL);
+
+            List<Professor> test = ds.GetProfessors();
+
+            Assert.AreEqual(pL[0].Name, test[0].Name);
+
+        }
+
+        [TestMethod]
         public void AddDuplicateProfessorToFile()
         {
             DataStorage ds = new DataStorage();
@@ -54,6 +71,43 @@ namespace ProfessorTest
 
             
         }
+
+        [TestMethod]
+        public void TestAddCategoryToFileThatExists()
+        {
+
+            DataStorage ds = new DataStorage();
+            ds.ClearCategoriesFile();
+            Categories c1 = new Categories(1, "Happy", "How happy are they");
+            List<Categories> catList = new List<Categories> { c1 };
+
+            ds.SaveCategories(catList);
+
+            List<Categories> test = ds.GetCategories();
+
+            Assert.AreEqual(catList[0].Name, test[0].Name);
+
+        }
+
+        [TestMethod]
+        public void TestAddCategoryToFileThatDoesNotExist()
+        {
+
+            DataStorage ds = new DataStorage();
+            ds.DeleteCategoriesFile();
+            Categories c1 = new Categories(1, "Happy", "How happy are they");
+            List<Categories> catList = new List<Categories> { c1 };
+
+            ds.SaveCategories(catList);
+
+            List<Categories> test = ds.GetCategories();
+
+            Assert.AreEqual(catList[0].Name, test[0].Name);
+
+        }
+
+
+
         [TestMethod]
         public void SaveAndRetrieveCategories()
         {
@@ -82,6 +136,75 @@ namespace ProfessorTest
             List<Categories> categoriesList = new List<Categories> { cat1, cat2 };
 
             Assert.IsFalse(ds.SaveCategories(categoriesList));
+        }
+
+
+        [TestMethod]
+        public void TestAddRatingToFileThatExists()
+        {
+
+            DataStorage ds = new DataStorage();
+
+            /*Make a test professor*/
+            ds.ClearProfessorsFile();
+            Professor p1 = new Professor(1, "Bilitski");
+            List<Professor> pL = new List<Professor> { p1 };
+
+            ds.SaveProfessors(pL);
+
+            /*Make a test category*/
+            ds.ClearCategoriesFile();
+            Categories c1 = new Categories(1, "Happy", "How happy are they");
+            List<Categories> catList = new List<Categories> { c1 };
+
+            ds.SaveCategories(catList);
+
+            /*Make a test rating*/
+
+            
+            ds.ClearRatingsFile();
+            Rating r1 = new Rating(1, 1, 1, 5);
+            List<Rating> ratingList = new List<Rating> { r1 };
+
+            ds.SaveRatings(ratingList);
+
+            List<Rating> test = ds.GetRatings();
+
+            Assert.AreEqual(ratingList[0].Value, test[0].Value);
+
+        }
+
+        [TestMethod]
+        public void TestAddRatingToFileThatDoesNotExists()
+        {
+
+            DataStorage ds = new DataStorage();
+            ds.DeleteRatingsFile();
+
+            /*Make a test professor*/
+            Professor p1 = new Professor(1, "Bilitski");
+            List<Professor> pL = new List<Professor> { p1 };
+
+            ds.SaveProfessors(pL);
+
+            /*Make a test category*/
+            ds.ClearCategoriesFile();
+            Categories c1 = new Categories(1, "Happy", "How happy are they");
+            List<Categories> catList = new List<Categories> { c1 };
+
+            ds.SaveCategories(catList);
+
+            /*Make a test rating*/
+
+            Rating r1 = new Rating(1, 1, 1, 5);
+            List<Rating> ratingList = new List<Rating> { r1 };
+
+            ds.SaveRatings(ratingList);
+
+            List<Rating> test = ds.GetRatings();
+
+            Assert.AreEqual(ratingList[0].Value, test[0].Value);
+
         }
 
         [TestMethod]
@@ -160,6 +283,90 @@ namespace ProfessorTest
                 Program.AddProfessor();
                 
                 Assert.AreEqual(1, Program.professors.Count); 
+            }
+
+
+            [TestMethod]
+            public void TestAddCategory_UniqueID()
+            {
+
+                consoleInput = new StringReader("1\nTestCategory\nTestDescription\n");
+                Console.SetIn(consoleInput);
+
+                Program.AddCategory();
+
+                Assert.AreEqual("TestCategory", Program.categories[0].Name);
+            }
+
+            [TestMethod]
+            public void TestAddCategory_DuplicateID()
+            {
+                Program.categories.Add(new Categories(1, "ExistingCategory", "ExistingDescription"));
+                consoleInput = new StringReader("1\nTestCategory\nTestDescription\n");
+                Console.SetIn(consoleInput);
+
+                Program.AddCategory();
+
+                Assert.AreEqual(1, Program.categories.Count);
+                Assert.AreEqual("ExistingCategory", Program.categories[0].Name);
+            }
+
+
+            
+
+            [TestMethod]
+            public void TestAddRating_UniqueID()
+            {
+                /*Add a valid professor*/
+                consoleInput = new StringReader("1\nJohn Doe\n");
+                Console.SetIn(consoleInput);
+
+                Program.AddProfessor();
+
+                /*Add a valid category*/
+                consoleInput = new StringReader("1\nTestCategory\nTestDescription\n");
+                Console.SetIn(consoleInput);
+
+                Program.AddCategory();
+
+                /*Add a valid rating*/
+                consoleInput = new StringReader("1\n1\n1\n5\n");
+                Console.SetIn(consoleInput);
+
+                Program.AddRating();
+
+                Assert.AreEqual(1, Program.ratings.Count);
+                Assert.AreEqual(5, Program.ratings[0].Value);
+            }
+            
+            [TestMethod]
+            public void TestAddRating_DuplicateID()
+            {
+                /*Add a valid professor*/
+                consoleInput = new StringReader("1\nJohn Doe\n");
+                Console.SetIn(consoleInput);
+
+                Program.AddProfessor();
+
+                /*Add a valid category*/
+                consoleInput = new StringReader("1\nTestCategory\nTestDescription\n");
+                Console.SetIn(consoleInput);
+
+                Program.AddCategory();
+
+                /*Add a valid rating*/
+                consoleInput = new StringReader("1\n1\n1\n5\n");
+                Console.SetIn(consoleInput);
+
+                Program.AddRating();
+
+                /*Try to add a duplicate rating id*/
+                consoleInput = new StringReader("1\n1\n1\n7\n");
+                Console.SetIn(consoleInput);
+
+                Program.AddRating();
+                Assert.AreEqual(1, Program.ratings.Count);
+                Assert.AreEqual(5, Program.ratings[0].Value);
             }
 
         }

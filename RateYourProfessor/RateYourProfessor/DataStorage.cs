@@ -186,6 +186,19 @@ namespace RateYourProfessor
         {
             File.WriteAllText(RatingsFilePath, string.Empty);
         }
+
+        public void DeleteProfessorsFile()
+        {
+            File.Delete(ProfessorsFilePath);
+        }
+        public void DeleteCategoriesFile()
+        {
+            File.Delete(CategoriesFilePath);
+        }
+        public void DeleteRatingsFile()
+        {
+            File.Delete(RatingsFilePath);
+        }
     }
 
     

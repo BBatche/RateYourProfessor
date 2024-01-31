@@ -119,57 +119,68 @@ public class Program
 
     public static void AddRating()
     {
-        Console.Write("Enter Rating ID: ");
-        if (int.TryParse(Console.ReadLine(), out int ratingId))
+        if (categories.Count > 0 && professors.Count > 0)
         {
-            // Check if the ID is unique
-            if (ratings.Any(r => r.ID == ratingId))
+            Console.Write("Enter Rating ID: ");
+            if (int.TryParse(Console.ReadLine(), out int ratingId))
             {
-                Console.WriteLine($"Rating with ID {ratingId} already exists. Please choose a unique ID.");
-                return;
-            }
-
-            Console.Write("Enter Professor ID: ");
-            if (int.TryParse(Console.ReadLine(), out int professorId))
-            {
-                Professor professor = professors.FirstOrDefault(p => p.ID == professorId);
-                if (professor != null)
+                // Check if the ID is unique
+                if (ratings.Any(r => r.ID == ratingId))
                 {
-                    Console.Write("Enter Category ID: ");
-                    if (int.TryParse(Console.ReadLine(), out int categoryId))
+                    Console.WriteLine($"Rating with ID {ratingId} already exists. Please choose a unique ID.");
+                    return;
+                }
+
+                ViewProfessors();
+
+                Console.Write("Enter Professor ID From the List: ");
+                if (int.TryParse(Console.ReadLine(), out int professorId))
+                {
+                    Professor professor = professors.FirstOrDefault(p => p.ID == professorId);
+                    if (professor != null)
                     {
-                        
-                        Console.Write("Enter Rating Value (1-10): ");
-                        if (int.TryParse(Console.ReadLine(), out int value) && value >= 1 && value <= 10)
+                        ViewCategories();
+
+                        Console.Write("Enter Category ID From the List: ");
+                        if (int.TryParse(Console.ReadLine(), out int categoryId))
                         {
-                            Rating newRating = new Rating(ratingId, professorId, categoryId, value);
-                            ratings.Add(newRating);
-                            professor.Ratings.Add(newRating);
-                            Console.WriteLine("Rating added successfully.");
+                        
+                            Console.Write("Enter Rating Value (1-10): ");
+                            if (int.TryParse(Console.ReadLine(), out int value) && value >= 1 && value <= 10)
+                            {
+                                Rating newRating = new Rating(ratingId, professorId, categoryId, value);
+                                ratings.Add(newRating);
+                                professor.Ratings.Add(newRating);
+                                Console.WriteLine("Rating added successfully.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid input for Rating Value. Please enter a value between 1 and 10.");
+                            }
                         }
                         else
                         {
-                            Console.WriteLine("Invalid input for Rating Value. Please enter a value between 1 and 10.");
+                            Console.WriteLine("Invalid input for Category ID.");
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Invalid input for Category ID.");
+                        Console.WriteLine($"Professor with ID {professorId} not found.");
                     }
                 }
                 else
                 {
-                    Console.WriteLine($"Professor with ID {professorId} not found.");
+                    Console.WriteLine("Invalid input for Professor ID.");
                 }
             }
             else
             {
-                Console.WriteLine("Invalid input for Professor ID.");
+                Console.WriteLine("Invalid input for Rating ID.");
             }
         }
         else
         {
-            Console.WriteLine("Invalid input for Rating ID.");
+            Console.WriteLine("You need at least one professor and one category to add a new rating.");
         }
     }
 
@@ -200,6 +211,7 @@ public class Program
 
     public static void EditProfessor()
     {
+        ViewProfessors();
         Console.Write("Enter Professor ID to edit: ");
         if (int.TryParse(Console.ReadLine(), out int id))
         {
@@ -224,6 +236,7 @@ public class Program
 
     public static void EditRating()
     {
+        ViewRatings();
         Console.Write("Enter Rating ID to edit: ");
         if (int.TryParse(Console.ReadLine(), out int ratingId))
         {
@@ -254,6 +267,7 @@ public class Program
 
     public static void EditCategory()
     {
+        ViewCategories();
         Console.Write("Enter Category ID to edit: ");
         if (int.TryParse(Console.ReadLine(), out int id))
         {
@@ -281,6 +295,7 @@ public class Program
 
     public static void DeleteProfessor()
     {
+        ViewProfessors();
         Console.Write("Enter Professor ID to delete: ");
         if (int.TryParse(Console.ReadLine(), out int id))
         {
@@ -303,6 +318,7 @@ public class Program
 
     public static void DeleteRating()
     {
+        ViewRatings();
         Console.Write("Enter Rating ID to delete: ");
         if (int.TryParse(Console.ReadLine(), out int id))
         {
@@ -325,6 +341,7 @@ public class Program
 
     public static void DeleteCategory()
     {
+        ViewCategories();
         Console.Write("Enter Category ID to delete: ");
         if (int.TryParse(Console.ReadLine(), out int id))
         {
