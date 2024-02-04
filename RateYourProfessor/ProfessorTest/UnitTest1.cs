@@ -256,59 +256,61 @@ namespace ProfessorTest
             {
                 consoleOutput.Dispose();
                 consoleInput.Dispose();
-                Program.professors.Clear();  
-                Program.ratings.Clear();    
-                Program.categories.Clear(); 
+                DataStorage.professors.Clear();
+                DataStorage.ratings.Clear();
+                DataStorage.categories.Clear(); 
             }
 
             [TestMethod]
             public void TestAddProfessor_UniqueID()
             {
-                
+                DataStorage ds = new DataStorage();
                 consoleInput = new StringReader("1\nJohn Doe\n");
                 Console.SetIn(consoleInput);
 
-                Program.AddProfessor();
+                ds.AddProfessor();
                 
-                Assert.AreEqual(1, Program.professors.Count);
+                Assert.AreEqual(1, DataStorage.professors.Count);
             }
 
             [TestMethod]
             public void TestAddProfessor_DuplicateID()
             {
-                Program.professors.Add(new Professor(1, "ExistingProfessor"));
+                DataStorage ds = new DataStorage();
+                DataStorage.professors.Add(new Professor(1, "ExistingProfessor"));
                 consoleInput = new StringReader("1\nJohn Doe\n");
                 Console.SetIn(consoleInput);
 
-                Program.AddProfessor();
+                ds.AddProfessor();
                 
-                Assert.AreEqual(1, Program.professors.Count); 
+                Assert.AreEqual(1, DataStorage.professors.Count); 
             }
 
 
             [TestMethod]
             public void TestAddCategory_UniqueID()
             {
-
+                DataStorage ds = new DataStorage();
                 consoleInput = new StringReader("1\nTestCategory\nTestDescription\n");
                 Console.SetIn(consoleInput);
 
-                Program.AddCategory();
+                ds.AddCategory();
 
-                Assert.AreEqual("TestCategory", Program.categories[0].Name);
+                Assert.AreEqual("TestCategory", DataStorage.categories[0].Name);
             }
 
             [TestMethod]
             public void TestAddCategory_DuplicateID()
             {
-                Program.categories.Add(new Categories(1, "ExistingCategory", "ExistingDescription"));
+                DataStorage ds = new DataStorage();
+                DataStorage.categories.Add(new Categories(1, "ExistingCategory", "ExistingDescription"));
                 consoleInput = new StringReader("1\nTestCategory\nTestDescription\n");
                 Console.SetIn(consoleInput);
 
-                Program.AddCategory();
+                ds.AddCategory();
 
-                Assert.AreEqual(1, Program.categories.Count);
-                Assert.AreEqual("ExistingCategory", Program.categories[0].Name);
+                Assert.AreEqual(1, DataStorage.categories.Count);
+                Assert.AreEqual("ExistingCategory", DataStorage.categories[0].Name);
             }
 
 
@@ -317,56 +319,58 @@ namespace ProfessorTest
             [TestMethod]
             public void TestAddRating_UniqueID()
             {
+                DataStorage ds = new DataStorage();
                 /*Add a valid professor*/
                 consoleInput = new StringReader("1\nJohn Doe\n");
                 Console.SetIn(consoleInput);
 
-                Program.AddProfessor();
+                ds.AddProfessor();
 
                 /*Add a valid category*/
                 consoleInput = new StringReader("1\nTestCategory\nTestDescription\n");
                 Console.SetIn(consoleInput);
 
-                Program.AddCategory();
+                ds.AddCategory();
 
                 /*Add a valid rating*/
                 consoleInput = new StringReader("1\n1\n1\n5\n");
                 Console.SetIn(consoleInput);
 
-                Program.AddRating();
+                ds.AddRating();
 
-                Assert.AreEqual(1, Program.ratings.Count);
-                Assert.AreEqual(5, Program.ratings[0].Value);
+                Assert.AreEqual(1, DataStorage.ratings.Count);
+                Assert.AreEqual(5, DataStorage.ratings[0].Value);
             }
             
             [TestMethod]
             public void TestAddRating_DuplicateID()
             {
+                DataStorage ds = new DataStorage();
                 /*Add a valid professor*/
                 consoleInput = new StringReader("1\nJohn Doe\n");
                 Console.SetIn(consoleInput);
 
-                Program.AddProfessor();
+                ds.AddProfessor();
 
                 /*Add a valid category*/
                 consoleInput = new StringReader("1\nTestCategory\nTestDescription\n");
                 Console.SetIn(consoleInput);
 
-                Program.AddCategory();
+                ds.AddCategory();
 
                 /*Add a valid rating*/
                 consoleInput = new StringReader("1\n1\n1\n5\n");
                 Console.SetIn(consoleInput);
 
-                Program.AddRating();
+                ds.AddRating();
 
                 /*Try to add a duplicate rating id*/
                 consoleInput = new StringReader("1\n1\n1\n7\n");
                 Console.SetIn(consoleInput);
 
-                Program.AddRating();
-                Assert.AreEqual(1, Program.ratings.Count);
-                Assert.AreEqual(5, Program.ratings[0].Value);
+                ds.AddRating();
+                Assert.AreEqual(1, DataStorage.ratings.Count);
+                Assert.AreEqual(5, DataStorage.ratings[0].Value);
             }
 
         }
