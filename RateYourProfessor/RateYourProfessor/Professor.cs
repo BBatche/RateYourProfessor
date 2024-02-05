@@ -10,14 +10,14 @@ namespace RateYourProfessor
     {
         public int ID { get; set; } // or use Guid for UUID
         public string Name { get; set; }
-        public List<Rating> Ratings { get; set; }
 
+        public List<Rating> Ratings { get; set; }
         // Constructor
-        public Professor(int id, string name, List<Rating> ratings)
+        public Professor(int id, string name)
         {
             ID = id;
             Name = name;
-            Ratings = ratings;
+            Ratings = new List<Rating>();
         }
     }
 }
